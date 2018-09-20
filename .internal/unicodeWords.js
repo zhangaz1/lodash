@@ -3,7 +3,9 @@ const rsAstralRange = '\\ud800-\\udfff'
 const rsComboMarksRange = '\\u0300-\\u036f'
 const reComboHalfMarksRange = '\\ufe20-\\ufe2f'
 const rsComboSymbolsRange = '\\u20d0-\\u20ff'
-const rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange
+const rsComboMarksExtendedRange = '\\u1ab0-\\u1aff'
+const rsComboMarksSupplementRange = '\\u1dc0-\\u1dff'
+const rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange + rsComboMarksExtendedRange + rsComboMarksSupplementRange
 const rsDingbatRange = '\\u2700-\\u27bf'
 const rsLowerRange = 'a-z\\xdf-\\xf6\\xf8-\\xff'
 const rsMathOpRange = '\\xac\\xb1\\xd7\\xf7'
@@ -18,10 +20,10 @@ const rsBreakRange = rsMathOpRange + rsNonCharRange + rsPunctuationRange + rsSpa
 const rsApos = "['\u2019]"
 const rsBreak = `[${rsBreakRange}]`
 const rsCombo = `[${rsComboRange}]`
-const rsDigits = '\\d+'
+const rsDigit = '\\d'
 const rsDingbat = `[${rsDingbatRange}]`
 const rsLower = `[${rsLowerRange}]`
-const rsMisc = `[^${rsAstralRange}${rsBreakRange + rsDigits + rsDingbatRange + rsLowerRange + rsUpperRange}]`
+const rsMisc = `[^${rsAstralRange}${rsBreakRange + rsDigit + rsDingbatRange + rsLowerRange + rsUpperRange}]`
 const rsFitz = '\\ud83c[\\udffb-\\udfff]'
 const rsModifier = `(?:${rsCombo}|${rsFitz})`
 const rsNonAstral = `[^${rsAstralRange}]`
@@ -57,7 +59,7 @@ const unicodeWords = RegExp.prototype.exec.bind(RegExp([
   `${rsUpper}+${rsOptContrUpper}`,
   rsOrdUpper,
   rsOrdLower,
-  rsDigits,
+  `${rsDigit}+`,
   rsEmoji
 ].join('|'), 'g'))
 
